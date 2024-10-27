@@ -19,8 +19,8 @@ public class Server {
                 Path filePath = Paths.get("sample.txt");
                 byte[] fileContent = Files.readAllBytes(filePath);
 
-                // Menggunakan MD5 untuk menghitung nilai hash
-                String hash = calculateMD5(fileContent);
+                // Menggunakan SHA-3 untuk menghitung nilai hash
+                String hash = calculateSHA3(fileContent);
 
                 // Mengirim file dan nilai hash ke client
                 sendFileAndHash(socket, fileContent, hash);
@@ -30,8 +30,8 @@ public class Server {
         }
     }
 
-    private static String calculateMD5(byte[] fileContent) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+    private static String calculateSHA3(byte[] fileContent) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA3-256");
         byte[] hashBytes = md.digest(fileContent);
 
         // Convert ke format hexadecimal
@@ -39,7 +39,7 @@ public class Server {
         String hash = number.toString(16);
 
         // Padding nol jika perlu
-        while (hash.length() < 32) {
+        while (hash.length() < 64) {
             hash = "0" + hash;
         }
         return hash;
