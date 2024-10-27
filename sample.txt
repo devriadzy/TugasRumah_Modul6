@@ -1,0 +1,2 @@
+Ini adalah contoh file untuk pengujian program pengiriman dan verifikasi integritas menggunakan SHA3.
+Pastikan file ini tetap utuh saat diterima oleh penerima.
