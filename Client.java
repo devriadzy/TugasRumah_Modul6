@@ -24,8 +24,8 @@ public class Client {
             String receivedHash = dataInputStream.readUTF();
             System.out.println("Hash diterima: " + receivedHash);
 
-            // Menggunakan MD5 untuk menghitung nilai hash dari file yang diterima
-            String calculatedHash = calculateMD5(receivedFileContent);
+            // Menggunakan SHA-3 untuk menghitung nilai hash dari file yang diterima
+            String calculatedHash = calculateSHA3(receivedFileContent);
 
             // Membandingkan nilai hash
             if (calculatedHash.equals(receivedHash)) {
@@ -38,8 +38,8 @@ public class Client {
         }
     }
 
-    private static String calculateMD5(byte[] fileContent) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+    private static String calculateSHA3(byte[] fileContent) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA3-256");
         byte[] hashBytes = md.digest(fileContent);
 
         // Convert ke format hexadecimal
@@ -47,7 +47,7 @@ public class Client {
         String hash = number.toString(16);
 
         // Padding nol jika perlu
-        while (hash.length() < 32) {
+        while (hash.length() < 64) {
             hash = "0" + hash;
         }
         return hash;
